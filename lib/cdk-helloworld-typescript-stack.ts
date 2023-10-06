@@ -17,5 +17,15 @@ export class CdkHelloworldTypescriptStack extends cdk.Stack {
     new apigw.LambdaRestApi(this, 'Endpoint', {
       handler: helloWorldFunction
     });
+
+    const helloWorldFastifyFunction = new NodejsFunction(this, "helloWorldFastifyFunction", {
+      runtime: Runtime.NODEJS_LATEST,
+      entry: path.join(__dirname, `/../functions/helloWorldFastify.ts`),
+      handler: 'helloWorldFastify',
+    })
+
+    new apigw.LambdaRestApi(this, 'EndpointFastify', {
+      handler: helloWorldFastifyFunction
+    });
   }
 }
